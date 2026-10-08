@@ -1,4 +1,5 @@
 package mergesort;
+import java.util.Arrays;
 
 public class MergeSort {
 
@@ -8,6 +9,7 @@ public class MergeSort {
 		showArray(array1);
 		mergeSort(array1);
 		showArray(array1);
+		
 		
 	}
 	
@@ -36,7 +38,49 @@ public class MergeSort {
 		//*  4. Replace the original array section with the merged     *
 		//*     array.                                                 *
 		//**************************************************************
+		if(left < right) {
+			int mid = (left + right)/2;
+			mergeSort(theArray, left, mid);
+			mergeSort(theArray, mid+1, right);
+			
+			merge(theArray, left, right);
+			
+		}
 
+	}
+	
+	public static int[] merge(int [] arr, int left, int right) {
+		if(left<right) {
+			int mid = (left + right)/2;
+			int[] n1 = Arrays.copyOfRange(arr, left, mid+1);
+			int[] n2 = Arrays.copyOfRange(arr, mid+1, right+1);
+			int i = 0;
+			int j = 0;
+			int k = left;
+			
+			while(i< n1.length && j < n2.length) {
+				if(n1[i] <= n2[j]) {
+					arr[k] = n1[i];
+					i++;
+				}else {
+					arr[k] = n2[j];
+					j++;
+				}
+				k++;
+			}
+			while(i< n1.length) {
+				arr[k] = n1[i];
+				i++;
+				k++;
+			}
+			while(j< n2.length) {
+				arr[k] = n2[j];
+				j++;
+				k++;
+			}
+ 		}
+		return arr;
+		
 	}
 	
 	public static void mergeSort(int[] array) {
